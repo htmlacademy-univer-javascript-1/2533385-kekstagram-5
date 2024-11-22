@@ -1,2 +1,4 @@
-import './setup.js';
-import {generatePhotos} from './data.js';
+import './until.js';
+import { generatePhotos } from './data.js';
+
+generatePhotos();

@@ -38,10 +38,14 @@ const createPhoto = (id) => ({
   comments: generateComments(getRandomInteger(0, 30))
 });
 
-export const generatePhotos = () => {
+const generatePhotos = () => {
   const photos = [];
   for (let index = 0; index < 25; index++) {
     photos.push(createPhoto(index + 1));
   }
   return photos;
 };
+
+generatePhotos();
+
+export {generatePhotos};
