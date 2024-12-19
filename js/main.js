@@ -1,5 +1,5 @@
-import './until.js';
-import { generatePhotos } from './data.js';
-import {renderSketch} from './sketch.js';
 
-renderSketch(generatePhotos());
+import {generatePhotos} from './data.js';
+import { showingGallery } from './gallery.js';
+
+showingGallery(generatePhotos());
