@@ -1,5 +1,5 @@
 
 import {generatePhotos} from './data.js';
-import {renderSketch} from './sketch.js';
+import { showingGallery } from './gallery.js';
 
-renderSketch(generatePhotos());
+showingGallery(generatePhotos());

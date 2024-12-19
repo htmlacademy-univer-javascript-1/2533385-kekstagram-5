@@ -1,4 +1,4 @@
-const box = document.querySelector('.pictures');
+const container = document.querySelector('.pictures');
 const sketchTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 const createSketch = ({comments, description, likes, url, id}) =>{
@@ -7,7 +7,7 @@ const createSketch = ({comments, description, likes, url, id}) =>{
   sketch.querySelector('.picture__likes').textContent = likes;
   sketch.querySelector('.picture__img').src = url;
   sketch.querySelector('.picture__img').alt = description;
-  sketch.dataset.ID = id;
+  sketch.dataset.pictureId = id;
 
   return sketch;
 };
@@ -18,7 +18,7 @@ const renderSketch = (pictures) => {
     const sketch = createSketch(picture);
     fragment.append(sketch);
   });
-  box.append(fragment);
+  container.append(fragment);
 };
 
 export{renderSketch};
