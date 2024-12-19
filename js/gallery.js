@@ -3,7 +3,7 @@ import {showingBigPhoto} from './fullPicture.js';
 
 const container = document.querySelector('.pictures');
 
-const showingGallery = (pictures) => {
+const renderGallery = (pictures) => {
   container.addEventListener('click', (evt) => {
     const sketch = evt.target.closest('[data-picture-id]');
     if (!sketch) {
@@ -18,4 +18,4 @@ const showingGallery = (pictures) => {
 
   renderSketch(pictures, container);
 };
-export{showingGallery as renderGallery};
+export{renderGallery};
