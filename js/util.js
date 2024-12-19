@@ -10,6 +10,6 @@ function getRandomArrayElement(elements) {
   return elements[randomIndex];
 }
 
-export {getRandomArrayElement};
-export {getRandomInteger};
+export {getRandomArrayElement, getRandomInteger};
+
 
