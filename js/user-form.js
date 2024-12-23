@@ -1,4 +1,6 @@
 import { isEscapeKey } from './util.js';
+import { resetScale} from './scale.js';
+import { sliderOperation, deactivateSlider, resetEffects } from './filter.js';
 
 const COMMENT_MAX_LENGTH = 140;
 const MAX_HASHTAG_COUNT = 5;
@@ -52,11 +54,15 @@ const openUploadForm = () => {
     document.addEventListener('keydown', handleDocumentKeydown);
     bodyElement.classList.add('modal-open');
     cancelButtonElement.addEventListener('click', closeUploadForm);
+    sliderOperation();
   });
 };
 function closeUploadForm() {
   uploadFormElement.reset();
   pristineInstance.reset();
+  resetScale();
+  resetEffects();
+  deactivateSlider();
   uploadOverlayElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', handleDocumentKeydown);
