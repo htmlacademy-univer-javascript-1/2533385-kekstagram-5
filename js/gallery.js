@@ -1,21 +1,17 @@
-import {renderSketch} from './sketch.js';
-import {showingBigPhoto} from './fullPicture.js';
+import { showingBigPhoto } from './fullPicture.js';
 
 const container = document.querySelector('.pictures');
 
 const renderGallery = (pictures) => {
   container.addEventListener('click', (evt) => {
-    const sketch = evt.target.closest('[data-picture-id]');
-    if (!sketch) {
-      return;
+    const sketch = evt.target.closest('[data-thumbnail-id]');
+    if (sketch) {
+      evt.preventDefault();
+      const pictureId = +sketch.dataset.thumbnailId;
+      const picture = pictures.find((item) => item.id === pictureId);
+      showingBigPhoto(picture);
     }
-
-    evt.preventDefault();
-    const picId = +sketch.dataset.pictureId;
-    const picture = pictures.find((item) => item.id === picId);
-    showingBigPhoto(picture);
   });
-
-  renderSketch(pictures, container);
 };
-export{renderGallery};
+
+export { renderGallery };

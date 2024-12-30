@@ -1,4 +1,5 @@
 import { resetScale } from './scale.js';
+
 const DEFAULT_EFFECT_SETTINGS = {
   name: 'none',
   filter: 'none',
@@ -7,12 +8,15 @@ const DEFAULT_EFFECT_SETTINGS = {
   step: 1,
   unit: '',
 };
+
 const effectConfigurations = {
+
   none: {
     filter: DEFAULT_EFFECT_SETTINGS.filter,
     min: DEFAULT_EFFECT_SETTINGS.min,
     max: DEFAULT_EFFECT_SETTINGS.max,
   },
+
   chrome: {
     class: 'effects__preview--chrome',
     filter: 'grayscale',
@@ -21,6 +25,7 @@ const effectConfigurations = {
     step: 0.1,
     unit: '',
   },
+
   sepia: {
     class: 'effects__preview--sepia',
     filter: 'sepia',
@@ -29,6 +34,7 @@ const effectConfigurations = {
     step: 0.1,
     unit: '',
   },
+
   marvin: {
     class: 'effects__preview--marvin',
     filter: 'invert',
@@ -37,6 +43,7 @@ const effectConfigurations = {
     step: 1,
     unit: '%',
   },
+
   phobos: {
     class: 'effects__preview--phobos',
     filter: 'blur',
@@ -45,6 +52,7 @@ const effectConfigurations = {
     step: 0.1,
     unit: 'px',
   },
+
   heat: {
     class: 'effects__preview--heat',
     filter: 'brightness',
@@ -54,13 +62,14 @@ const effectConfigurations = {
     unit: '',
   },
 };
+
 const imagePreview = document.querySelector('.img-upload__preview img');
 const effectLevelContainer = document.querySelector('.img-upload__effect-level');
 const effectLevelSlider = document.querySelector('.effect-level__slider');
 const effectLevelValueField = document.querySelector('.effect-level__value');
 const effectSelectorContainer = document.querySelector('.effects');
 let effectSettings = DEFAULT_EFFECT_SETTINGS;
-const isDefaultEffect = () => effectSettings.filter === DEFAULT_EFFECT_SETTINGS.filter;
+
 const initializeSlider = () => noUiSlider.create(effectLevelSlider, {
   range: {
     min: DEFAULT_EFFECT_SETTINGS.min,
@@ -70,7 +79,11 @@ const initializeSlider = () => noUiSlider.create(effectLevelSlider, {
   step: DEFAULT_EFFECT_SETTINGS.step,
   connect: 'lower',
 });
+
 effectLevelContainer.classList.add('hidden');
+
+const isDefaultEffect = () => effectSettings.filter === DEFAULT_EFFECT_SETTINGS.filter;
+
 const showSlider = () => {
   if (isDefaultEffect()) {
     effectLevelContainer.classList.add('hidden');
@@ -78,6 +91,7 @@ const showSlider = () => {
     effectLevelContainer.classList.remove('hidden');
   }
 };
+
 const updateSlider = () => {
   effectLevelSlider.noUiSlider.updateOptions({
     range: {
@@ -90,6 +104,7 @@ const updateSlider = () => {
   });
   showSlider();
 };
+
 const updateEffectContainer = (evt) => {
   if (!evt.target.matches('input[type="radio"]')) {
     return;
@@ -97,10 +112,12 @@ const updateEffectContainer = (evt) => {
   const effectName = evt.target.value;
   applyEffect(effectName);
 };
+
 function applyEffect(effect) {
   effectSettings = effectConfigurations[effect];
   updateSlider();
 }
+
 const handleSliderUpdate = () => {
   const currentValueEffect = effectLevelSlider.noUiSlider.get();
   if (isDefaultEffect()) {
@@ -110,18 +127,22 @@ const handleSliderUpdate = () => {
   imagePreview.style.filter = `${effectSettings.filter}(${currentValueEffect}${effectSettings.unit})`;
   effectLevelValueField.value = currentValueEffect;
 };
+
 const sliderOperation = () => {
   initializeSlider();
   handleSliderUpdate();
   effectSelectorContainer.addEventListener('change', updateEffectContainer);
   effectLevelSlider.noUiSlider.on('update', handleSliderUpdate);
 };
+
 const deactivateSlider = () => {
   effectSelectorContainer.removeEventListener('change', updateEffectContainer);
   effectLevelSlider.noUiSlider.destroy();
 };
+
 const resetEffects = () => {
   effectSettings = DEFAULT_EFFECT_SETTINGS;
   updateSlider();
 };
-export { sliderOperation, deactivateSlider , resetEffects };
+
+export { resetEffects, sliderOperation , deactivateSlider };
