@@ -1,80 +1,80 @@
 import { isEscapeKey, closeMessage, showMessage, submitButtonAccess } from './util.js';
 import { handleDocumentKeydown, submitButton, SUBMIT_BUTTON_DEFAULT_TEXT} from './user-form.js';
 
-const ERROR_SHOW_TIME = 5000;
+const ERROR_DISPLAY_DURATION = 5000;
 
-const templateError = document.querySelector('#error').content.querySelector('.error');
-const errorContainer = templateError.cloneNode(true);
-const errorButton = errorContainer.querySelector('.error__button');
-const tempaleSuccess = document.querySelector('#success').content.querySelector('.success');
-const successContainer = tempaleSuccess.cloneNode(true);
-const successButton = successContainer.querySelector('.success__button');
-const templateDataError = document.querySelector('#error').content.querySelector('.error');
-const dataErrorContainer = templateDataError.cloneNode(true);
+const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+const errorMessageContainer = errorTemplate.cloneNode(true);
+const errorActionButton = errorMessageContainer.querySelector('.error__button');
+const successTemplate = document.querySelector('#success').content.querySelector('.success');
+const successMessageContainer = successTemplate.cloneNode(true);
+const successActionButton = successMessageContainer.querySelector('.success__button');
+const dataErrorTemplate = document.querySelector('#error').content.querySelector('.error');
+const dataErrorMessageContainer = dataErrorTemplate.cloneNode(true);
 
-const closeSendingSuccess = () => {
-  closeMessage(successButton, onSuccessButtonClick, onSuccessContainerEscKeydown ,onSuccessContainerMouseClick, successContainer);
+const closeSuccessMessage = () => {
+  closeMessage(successActionButton, onSuccessActionButtonClick, onSuccessMessageEscKeydown ,onSuccessMessageMouseClick, successMessageContainer);
 };
 
-function onSuccessButtonClick () {
-  closeSendingSuccess();
+function onSuccessActionButtonClick () {
+  closeSuccessMessage();
 }
 
-function onSuccessContainerEscKeydown (evt) {
+function onSuccessMessageEscKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeSendingSuccess();
+    closeSuccessMessage();
   }
 }
 
-function onSuccessContainerMouseClick (evt) {
+function onSuccessMessageMouseClick (evt) {
   if (!evt.target.matches('.success__inner')) {
-    closeSendingSuccess();
+    closeSuccessMessage();
   }
 }
 
-const showSendingSuccess = () => {
-  showMessage(successContainer, successButton, onSuccessButtonClick, onSuccessContainerEscKeydown, onSuccessContainerMouseClick);
+const showSuccessMessage = () => {
+  showMessage(successMessageContainer, successActionButton, onSuccessActionButtonClick, onSuccessMessageEscKeydown, onSuccessMessageMouseClick);
 };
 
-const closeSendingError = () => {
-  closeMessage(errorButton, onErrorButtonClick, onErrorContainerEscKeydown, onErrorContainerMouseClick, errorContainer);
+const closeErrorMessage = () => {
+  closeMessage(errorActionButton, onErrorActionButtonClick, onErrorMessageEscKeydown, onErrorMessageMouseClick, errorMessageContainer);
   submitButtonAccess(submitButton, false, SUBMIT_BUTTON_DEFAULT_TEXT);
   document.addEventListener('keydown', handleDocumentKeydown);
 };
 
-function onErrorButtonClick () {
-  closeSendingError();
+function onErrorActionButtonClick () {
+  closeErrorMessage();
 }
 
-function onErrorContainerEscKeydown (evt) {
+function onErrorMessageEscKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeSendingError();
+    closeErrorMessage();
   }
 }
 
-function onErrorContainerMouseClick (evt) {
+function onErrorMessageMouseClick (evt) {
   if (!evt.target.matches('.error__inner')) {
-    closeSendingError();
+    closeErrorMessage();
   }
 }
 
-const showSendingError = () => {
-  showMessage(errorContainer, errorButton, onErrorButtonClick, handleDocumentKeydown, onErrorContainerMouseClick);
+const showErrorMessage = () => {
+  showMessage(errorMessageContainer, errorActionButton, onErrorActionButtonClick, handleDocumentKeydown, onErrorMessageMouseClick);
 };
 
-const isSendingErrorShown = () => {
-  if (showSendingError) {
+const isErrorMessageVisible = () => {
+  if (showErrorMessage) {
     return true;
   }
 };
 
-const showDataError = () => {
-  document.body.append(dataErrorContainer);
+const displayDataError = () => {
+  document.body.append(dataErrorMessageContainer);
   setTimeout(() => {
-    dataErrorContainer.remove();
-  }, ERROR_SHOW_TIME);
+    dataErrorMessageContainer.remove();
+  }, ERROR_DISPLAY_DURATION);
 };
 
-export { closeSendingError, showSendingError, showSendingSuccess, isSendingErrorShown, showDataError };
+export { closeErrorMessage , showErrorMessage , showSuccessMessage , isErrorMessageVisible, displayDataError };
