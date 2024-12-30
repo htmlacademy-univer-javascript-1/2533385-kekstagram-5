@@ -1,7 +1,7 @@
 import { renderSketch} from './sketch.js';
 import { renderGallery } from './gallery.js';
-import { displayDataError } from './message.js';
 import { initializePhotoSorting } from './filter-change.js';
+import { renderAlertBox } from './util.js';
 
 const DATA_FETCH_URL = 'https://29.javascript.htmlacademy.pro/kekstagram/data';
 const DATA_SEND_URL = 'https://29.javascript.htmlacademy.pro/kekstagram/';
@@ -18,8 +18,8 @@ const fetchData = () => {
       initializePhotoSorting(pictures);
       imageFiltersContainer.classList.remove('img-filters--inactive');
     })
-    .catch(() => {
-      displayDataError();
+    .catch((err) => {
+      renderAlertBox(err);
     });
 };
 
@@ -33,6 +33,7 @@ const sendRequest = (body) => fetch(
     if (!response.ok) {
       throw new Error();
     }
+    return response.json();
   })
   .catch(() => {
     throw new Error();
