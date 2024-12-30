@@ -1,13 +1,15 @@
 const container = document.querySelector('.pictures');
-const sketchTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const sketchTemplate = document.querySelector('#picture').content;
+const template = sketchTemplate.querySelector('.picture');
 
-const createSketch = ({comments, description, likes, url, id}) =>{
-  const sketch = sketchTemplate.cloneNode(true);
-  sketch.querySelector('.picture__comments').textContent = comments.length;
-  sketch.querySelector('.picture__likes').textContent = likes;
+const createSketch = ({url, description, comments, likes, id}) => {
+  const sketch = template.cloneNode(true);
+
   sketch.querySelector('.picture__img').src = url;
   sketch.querySelector('.picture__img').alt = description;
-  sketch.dataset.pictureId = id;
+  sketch.querySelector('.picture__comments').textContent = comments.length;
+  sketch.querySelector('.picture__likes').textContent = likes;
+  sketch.dataset.thumbnailId = id;
 
   return sketch;
 };
@@ -21,4 +23,4 @@ const renderSketch = (pictures) => {
   container.append(fragment);
 };
 
-export{renderSketch};
+export { renderSketch } ;
