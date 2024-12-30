@@ -1,29 +1,32 @@
 import { renderSketch} from './sketch.js';
 import { renderGallery } from './gallery.js';
-import { showDataError } from './message.js';
+import { displayDataError } from './message.js';
+import { initializePhotoSorting } from './filter-change.js';
 
+const DATA_FETCH_URL = 'https://29.javascript.htmlacademy.pro/kekstagram/data';
+const DATA_SEND_URL = 'https://29.javascript.htmlacademy.pro/kekstagram/';
+const HTTP_POST_METHOD = 'POST';
 
-const URL_DATA_GET = 'https://29.javascript.htmlacademy.pro/kekstagram/data';
-const URL_DATA_SEND = 'https://29.javascript.htmlacademy.pro/kekstagram/';
-const SEND_METHOD = 'POST';
+const imageFiltersContainer = document.querySelector('.img-filters');
 
-
-const getData = () => {
-  fetch(URL_DATA_GET)
+const fetchData = () => {
+  fetch(DATA_FETCH_URL)
     .then((response) => response.json())
-    .then((previews) => {
-      renderSketch(previews);
-      renderGallery(previews);
+    .then((pictures) => {
+      renderSketch(pictures);
+      renderGallery(pictures);
+      initializePhotoSorting(pictures);
+      imageFiltersContainer.classList.remove('img-filters--inactive');
     })
     .catch(() => {
-      showDataError();
+      displayDataError();
     });
 };
 
-const sendData = (body) => fetch(
-  URL_DATA_SEND,
+const sendRequest = (body) => fetch(
+  DATA_SEND_URL,
   {
-    method: SEND_METHOD,
+    method: HTTP_POST_METHOD,
     body,
   })
   .then((response) => {
@@ -35,4 +38,4 @@ const sendData = (body) => fetch(
     throw new Error();
   });
 
-export { getData, sendData };
+export { fetchData, sendRequest };

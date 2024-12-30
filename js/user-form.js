@@ -1,8 +1,8 @@
 import { isEscapeKey, submitButtonAccess } from './util.js';
 import { resetScale } from './scale.js';
 import { resetEffects,sliderOperation, deactivateSlider } from './filter.js';
-import { showSendingError, showSendingSuccess } from './message.js';
-import { sendData } from './api.js';
+import { showErrorMessage, showSuccessMessage } from './message.js';
+import { sendRequest } from './api.js';
 
 const COMMENT_MAX_LENGTH = 140;
 const MAX_HASHTAG_COUNT = 5;
@@ -96,13 +96,13 @@ const sendFormSubmit = (data) => {
   document.removeEventListener('keydown', handleDocumentKeydown);
   cleanPristineErrors();
   submitButtonAccess(submitButton, false, SUBMIT_BUTTON_SENDING_TEXT);
-  sendData(new FormData(data))
+  sendRequest(new FormData(data))
     .then(() => {
-      showSendingSuccess();
+      showSuccessMessage();
       closeUploadForm();
     })
     .catch(() => {
-      showSendingError();
+      showErrorMessage();
     })
     .finally(submitButtonAccess(submitButton, true, SUBMIT_BUTTON_SENDING_TEXT));
 };
