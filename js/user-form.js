@@ -3,6 +3,7 @@ import { resetScale } from './scale.js';
 import { resetEffects,sliderOperation, deactivateSlider } from './filter.js';
 import { showErrorMessage, showSuccessMessage } from './message.js';
 import { sendRequest } from './api.js';
+import { handlePhotoUpload } from './uploading-photo.js';
 
 const COMMENT_MAX_LENGTH = 140;
 const MAX_HASHTAG_COUNT = 5;
@@ -69,6 +70,7 @@ const openUploadForm = () => {
     bodyElement.classList.add('modal-open');
     cancelButtonElement.addEventListener('click', closeUploadForm);
     sliderOperation();
+    handlePhotoUpload();
   });
 };
 
