@@ -1,5 +1,5 @@
 const isEscapeKey = (evt) => evt.key === 'Escape';
-
+const ERROR_DISPLAY_DURATION = 5000;
 const closeMessage = (button, onClick, onEsc, onMouseClick, container) => {
   button.removeEventListener('click', onClick);
   document.removeEventListener('keydown', onEsc);
@@ -27,5 +27,21 @@ function debounce (callback, timeoutDelay = 500) {
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 }
-
-export {isEscapeKey, closeMessage, showMessage, submitButtonAccess, debounce };
+const renderAlertBox = (message) => {
+  const alertMessageBox = document.createElement('div');
+  alertMessageBox.style.zIndex = '100';
+  alertMessageBox.style.position = 'absolute';
+  alertMessageBox.style.left = '0';
+  alertMessageBox.style.top = '0';
+  alertMessageBox.style.right = '0';
+  alertMessageBox.style.padding = '10px 3px';
+  alertMessageBox.style.fontSize = '30px';
+  alertMessageBox.style.textAlign = 'center';
+  alertMessageBox.style.backgroundColor = 'red';
+  alertMessageBox.textContent = message;
+  document.body.append(alertMessageBox);
+  setTimeout(() => {
+    alertMessageBox.remove();
+  },ERROR_DISPLAY_DURATION);
+};
+export {isEscapeKey, closeMessage, showMessage, submitButtonAccess, debounce, renderAlertBox };
