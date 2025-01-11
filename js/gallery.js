@@ -1,4 +1,4 @@
-import { showingBigPhoto } from './fullPicture.js';
+import { showingBigPhoto } from './full-picture.js';
 
 const container = document.querySelector('.pictures');
 
